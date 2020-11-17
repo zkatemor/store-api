@@ -1,13 +1,31 @@
+from flask import request, Response
 from flask_restful import Resource
+
+from models.product import Product
 
 
 class ProductController(Resource):
     def post(self):
         try:
-            title, definition, link, token = self.create_params()
+            # title, definition, link, token = self.create_params()
+            body = request.get_json()
+            movie = Product(**body).save()
+            id = movie.id
+            return {'id': str(id)}, 201
         except Exception as e:
             return {
                        "error": {
-                           "message": "title, definition, link, token is required"
+                           "message": str(e)
+                       }
+                   }, 422
+
+    def get(self):
+        try:
+            movies = Product.objects().to_json()
+            return Response(movies, mimetype="application/json", status=200)
+        except Exception as e:
+            return {
+                       "error": {
+                           "message": str(e)
                        }
                    }, 422

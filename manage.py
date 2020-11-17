@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from flask_script import Manager
 
 from app import create_app, api, db
-from app.controllers.product import ProductController
+from app.controllers.product_controller import ProductController
 
 load_dotenv()
 
