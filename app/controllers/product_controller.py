@@ -7,7 +7,6 @@ from models.product import Product
 class ProductController(Resource):
     def post(self):
         try:
-            # title, definition, link, token = self.create_params()
             body = request.get_json()
             movie = Product(**body).save()
             id = movie.id

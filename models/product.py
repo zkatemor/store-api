@@ -1,5 +1,3 @@
-from flask_restful import Resource
-
 from app import db
 
 
