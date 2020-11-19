@@ -49,11 +49,27 @@ class ProductController(Resource):
             else:
                 products = Product.objects()
 
-            result = self.schema(products)
-            return result
+            return self.schema(products), 200
         except Exception as e:
             return {
                        "error": {
                            "message": str(e)
                        }
                    }, 422
+
+
+class ProductShowController(Resource):
+    def schema(self, product):
+        return {"result": {"name": product.name, "description": product.description, "params": product.params}}
+
+    def get(self, id):
+        try:
+            product = Product.objects.get(id=id)
+
+            return self.schema(product), 200
+        except Exception as e:
+            return {
+                       "error": {
+                           "message": "not found"
+                       }
+                   }, 404
