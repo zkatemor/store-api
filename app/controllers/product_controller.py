@@ -1,16 +1,35 @@
-from flask import request, Response
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
 
 from models.product import Product
 
 
 class ProductController(Resource):
+    def create_params(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('name', type=str, required=True)
+        parser.add_argument('description', type=str, required=True)
+        parser.add_argument('params', type=dict, action="append", required=True)
+        args = parser.parse_args()
+        return args['name'], args['description'], args['params']
+
+    def show_params(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('name', type=str, required=False)
+        parser.add_argument('params', type=dict, action="append", required=False)
+        args = parser.parse_args()
+        return args['name'], args['params']
+
+    def schema(self, products):
+        return {"result": [{"id": str(product.id), "name": product.name} for product in products]}
+
     def post(self):
         try:
-            body = request.get_json()
-            movie = Product(**body).save()
-            id = movie.id
-            return {'id': str(id)}, 201
+            name, description, params = self.create_params()
+            product = Product(name=name, description=description, params=params).save()
+            return {
+                       "successful": {
+                           "id": str(product.id)}
+                   }, 201
         except Exception as e:
             return {
                        "error": {
@@ -20,8 +39,18 @@ class ProductController(Resource):
 
     def get(self):
         try:
-            movies = Product.objects().to_json()
-            return Response(movies, mimetype="application/json", status=200)
+            name, params = self.show_params()
+            if name is not None and params is not None:
+                products = Product.objects(name=name, params__in=params)
+            elif name is not None:
+                products = Product.objects(name=name)
+            elif params is not None:
+                products = Product.objects(params__in=params)
+            else:
+                products = Product.objects()
+
+            result = self.schema(products)
+            return result
         except Exception as e:
             return {
                        "error": {
