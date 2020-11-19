@@ -65,6 +65,20 @@
 }
 ```
 
+**CURL**
+
+```
+curl --location --request POST 'http://127.0.0.1:5000/product' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "TV set",
+    "description": "The best of the best",
+    "params": [
+        {"Size": "M"}
+    ]
+}'
+```
+
 ### Get a list of product names, with the ability to filter
 
 `GET` /product
@@ -123,6 +137,18 @@ or with empty body (return all products)
 }
 ```
 
+**CURL**
+
+```
+curl --location --request GET 'http://127.0.0.1:5000/product' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "params": [
+        {"Size": "S"}
+    ]
+}'
+```
+
 ### Get product details by ID
 
 `GET` /product/:id
@@ -157,4 +183,10 @@ or with empty body (return all products)
         ]
     }
 }
+```
+
+**CURL**
+
+```
+curl --location --request GET 'http://127.0.0.1:5000/product/5fb6d5fe66e8d01c77a6e0a2'
 ```

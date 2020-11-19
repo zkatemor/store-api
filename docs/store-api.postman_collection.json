@@ -1,0 +1,92 @@
+{
+	"id": "001269d4-1f2e-46e5-94cd-3fef0777ac51",
+	"name": "store-api",
+	"description": "",
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [
+		"7c8fef98-1ade-465d-8b3c-f939626395a3",
+		"7f163ae8-17f6-449b-ba1f-162b4fc3d35a",
+		"131eeb8d-9cb1-4e6a-9a1a-de70ca2e760f"
+	],
+	"folders_order": [],
+	"protocolProfileBehavior": {},
+	"folders": [],
+	"requests": [
+		{
+			"id": "131eeb8d-9cb1-4e6a-9a1a-de70ca2e760f",
+			"name": "show",
+			"url": "http://127.0.0.1:5000/product/:id",
+			"description": "",
+			"data": null,
+			"dataOptions": null,
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [
+				{
+					"key": "id",
+					"value": "5fb6d5fe66e8d01c77a6e0a2"
+				}
+			],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"headers": "",
+			"pathVariables": {
+				"id": "5fb6d5fe66e8d01c77a6e0a2"
+			}
+		},
+		{
+			"id": "7c8fef98-1ade-465d-8b3c-f939626395a3",
+			"name": "create",
+			"url": "http://127.0.0.1:5000/product",
+			"description": "",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"rawModeData": "{\n    \"name\": \"TV set\",\n    \"description\": \"The best of the best\",\n    \"params\": [\n        {\"Size\": \"M\"}\n    ]\n}",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "7f163ae8-17f6-449b-ba1f-162b4fc3d35a",
+			"name": "index",
+			"url": "http://127.0.0.1:5000/product",
+			"description": "",
+			"data": [],
+			"dataOptions": {
+				"raw": {
+					"language": "json"
+				}
+			},
+			"dataMode": "raw",
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": null,
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"rawModeData": "{\n    \"params\": [\n        {\"Size\": \"S\"}\n    ]\n}",
+			"headers": "",
+			"pathVariables": {}
+		}
+	]
+}
